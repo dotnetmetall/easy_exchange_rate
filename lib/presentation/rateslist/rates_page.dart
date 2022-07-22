@@ -83,7 +83,7 @@ class RatesListBody extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Row(children: [
-                                  Text("SSS"),
+                                  const Icon(Icons.currency_exchange),
                                   Padding(
                                       padding: const EdgeInsets.only(left: 16),
                                       child: Text(rate.currencyCode)),
