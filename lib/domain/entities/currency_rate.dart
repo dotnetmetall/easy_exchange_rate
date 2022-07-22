@@ -1,9 +1,8 @@
 class CurrencyRate {
-  final String currencyCode;
-  final double rate;
+  late String currencyCode;
+  late double rate;
 
-  const CurrencyRate(
-    this.currencyCode,
-    this.rate,
-  );
+  CurrencyRate(this.currencyCode, double rate) {
+    this.rate = 1.0 / rate;
+  }
 }

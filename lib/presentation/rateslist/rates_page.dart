@@ -19,8 +19,7 @@ class RatesPage extends StatelessWidget {
 class CurrencySelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RatesListCubit, RatesListState>(
-        builder: (context, state) {
+    return BlocBuilder<RatesListCubit, RatesListState>(builder: (context, state) {
       if (state is InitializationState || state is FailedInitState) {
         return const SizedBox.shrink();
       }
@@ -31,9 +30,8 @@ class CurrencySelector extends StatelessWidget {
         items: state.availableCurrencies
             .map((e) => DropdownMenuItem<Currency>(value: e, child: Text(e.currencyCode)))
             .toList(),
-        onChanged: (Currency? newValue) async => await context
-            .read<RatesListCubit>()
-            .changeBaseCurrencyAsync(newValue!),
+        onChanged: (Currency? newValue) async =>
+            await context.read<RatesListCubit>().changeBaseCurrencyAsync(newValue!),
       ));
     });
   }
@@ -44,8 +42,7 @@ class RatesListBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RatesListCubit, RatesListState>(
-        builder: (context, state) {
+    return BlocBuilder<RatesListCubit, RatesListState>(builder: (context, state) {
       _ratesCubit ??= context.read<RatesListCubit>();
 
       if (state is RatesReceivedState) {
@@ -60,10 +57,8 @@ class RatesListBody extends StatelessWidget {
     });
   }
 
-  Widget _BuildList(
-      BuildContext context, RatesReceivedState ratesReceivedState) {
-    var formattedTimeStamp =
-        DateFormat.yMMMMEEEEd().add_Hm().format(ratesReceivedState.lastUpdate);
+  Widget _BuildList(BuildContext context, RatesReceivedState ratesReceivedState) {
+    var formattedTimeStamp = DateFormat.yMMMMEEEEd().add_Hm().format(ratesReceivedState.lastUpdate);
 
     return Column(
       children: [
@@ -73,23 +68,17 @@ class RatesListBody extends StatelessWidget {
                 child: ListView.separated(
                     padding: const EdgeInsets.all(16),
                     itemCount: ratesReceivedState.rates.length,
-                    separatorBuilder: (BuildContext context, int index) =>
-                        Divider(),
+                    separatorBuilder: (BuildContext context, int index) => const Divider(),
                     itemBuilder: (_, index) {
                       var rate = ratesReceivedState.rates[index];
-                      return Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(children: [
-                                  Text("SSS"),
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 16),
-                                      child: Text(rate.currencyCode)),
-                                ]),
-                                Text(rate.rate.toStringAsFixed(2))
-                              ]));
+                      return ListTile(
+                        leading: const Icon(Icons.money),
+                        title: Text(rate.currencyCode),
+                        trailing: Text(rate.rate.toStringAsFixed(2)),
+                        onTap: () {
+                          
+                        },
+                      );
                     }))),
         Container(
           color: Theme.of(context).primaryColor,

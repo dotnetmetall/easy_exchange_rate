@@ -20,8 +20,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(
-              create: (_) => RatesListCubit(locator.get<RatesProvider>()))
+          BlocProvider(create: (_) => RatesListCubit(locator.get<RatesProvider>())),
         ],
         child: MaterialApp(
           localizationsDelegates: [
